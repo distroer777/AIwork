@@ -20,7 +20,7 @@ export default function RegisterPage() {
             type="email"
             required
             autoComplete="email"
-            className="rounded border border-gray-400 px-3 py-2"
+            className="rounded-control border border-line bg-surface px-3 py-2"
           />
         </label>
 
@@ -32,21 +32,21 @@ export default function RegisterPage() {
             required
             minLength={8}
             autoComplete="new-password"
-            className="rounded border border-gray-400 px-3 py-2"
+            className="rounded-control border border-line bg-surface px-3 py-2"
           />
         </label>
 
         <button
           type="submit"
           disabled={pending}
-          className="rounded bg-[#6b7340] px-4 py-2 text-white disabled:opacity-60"
+          className="rounded-control bg-accent px-4 py-2 text-on-accent hover:bg-accent-hover disabled:opacity-60"
         >
           {pending ? "Отправляю..." : "Зарегистрироваться"}
         </button>
       </form>
 
       {state.message && (
-        <p className={state.ok ? "text-green-700" : "text-red-700"}>{state.message}</p>
+        <p className={state.ok ? "text-success" : "text-danger"}>{state.message}</p>
       )}
     </main>
   );

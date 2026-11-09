@@ -1,26 +1,37 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Токены дизайн-системы. Правила их применения: _docs/design-system.md */
+@theme {
+  /* Цвета */
+  --color-bg: #f2f5fb;
+  --color-surface: #ffffff;
+  --color-ink: #0a1024;
+  --color-ink-muted: #4a5470;
+  --color-line: #d9e0ef;
+  --color-accent: #1b44ff;
+  --color-accent-hover: #1233cc;
+  --color-accent-soft: #e6ebff;
+  --color-on-accent: #ffffff;
+  --color-on-ink: #ffffff;
+  --color-success: #1a7f4b;
+  --color-danger: #c62828;
+
+  /* Скругления */
+  --radius-card: 1.25rem;
+  --radius-control: 0.75rem;
+  --radius-pill: 999px;
+
+  /* Тени */
+  --shadow-card: 0 8px 30px rgb(10 16 36 / 0.08);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Шрифты подключены в layout.tsx через next/font */
+  --font-sans: var(--font-golos), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-unbounded), var(--font-golos), ui-sans-serif, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
