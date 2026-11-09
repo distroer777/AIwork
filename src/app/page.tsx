@@ -145,12 +145,12 @@ export default function Home() {
     <>
       <SiteHeader />
       <main>
-        <section className="bg-bg">
+        <section className="scene-hero">
           <Container className="py-14 sm:py-20 lg:py-28">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-accent">
-              Онлайн-курс по инвестициям
+            <p className="mb-4 flex items-center gap-2.5 text-sm font-semibold text-kicker">
+              <span className="size-2 rounded-pill bg-kicker" aria-hidden="true" />Онлайн-курс по инвестициям · ближайший поток — сентябрь 2026
             </p>
-            <h1 className="max-w-4xl font-heading text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
+            <h1 className="max-w-4xl font-heading text-3xl font-extrabold leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl">
               Инвестиции, где вы понимаете <em className="text-accent">каждое решение</em>
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-ink-muted sm:text-xl">
@@ -171,12 +171,12 @@ export default function Home() {
           </Container>
         </section>
 
-        <Section id="idea" eyebrow="Две логики" title="Без системы и по системе" tone="surface">
+        <Section id="idea" eyebrow="Две логики" title="Без системы и по системе" tone="dark">
           <div className="grid gap-6 md:grid-cols-2">
             <LogicCard variant="without" title="Без системы" items={withoutSystem} />
             <LogicCard variant="with" title="По системе" items={withSystem} />
           </div>
-          <div className="mt-6 rounded-card bg-ink p-6 text-on-ink sm:p-8">
+          <div className="mt-6 rounded-card bg-white/5 p-6 text-on-ink ring-1 ring-white/10 sm:p-8">
             <p className="font-heading text-xl font-bold">Проблема не в конкретной акции</p>
             <p className="mt-2 opacity-80">Проблема в том, что нет системы, по которой принимаются решения.</p>
           </div>
@@ -311,7 +311,7 @@ export default function Home() {
           </p>
         </Section>
 
-        <Section id="join" eyebrow="Заявка" title="Следующее решение уже за вами">
+        <Section id="join" eyebrow="Заявка" title="Следующее решение уже за вами" tone="dark">
           <div className="max-w-2xl">
             <SignupForm />
           </div>

@@ -9,11 +9,11 @@ type ButtonLinkProps = {
 };
 
 const base =
-  "inline-flex items-center justify-center rounded-control px-6 py-3 text-base font-semibold transition-colors";
+  "inline-flex items-center justify-center rounded-pill px-7 py-4 text-base font-semibold transition duration-300 hover:-translate-y-0.5";
 
 const variants = {
-  primary: "bg-accent text-on-accent hover:bg-accent-hover",
-  secondary: "border border-line bg-surface text-ink hover:bg-accent-soft",
+  primary: "bg-accent text-on-accent shadow-glow hover:bg-accent-hover",
+  secondary: "bg-surface/75 text-ink shadow-card hover:text-accent",
 };
 
 export function ButtonLink({ href, children, variant = "primary", className = "" }: ButtonLinkProps) {

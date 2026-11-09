@@ -2,7 +2,7 @@ import { Container } from "./container";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-ink text-on-ink">
+    <footer className="scene-dark">
       <Container className="flex flex-col gap-6 py-10 sm:py-12">
         <div className="font-heading text-xl font-bold">Ярчинвест</div>
         <div className="flex flex-col gap-2 text-sm opacity-80 sm:flex-row sm:gap-6">

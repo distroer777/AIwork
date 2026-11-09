@@ -28,7 +28,7 @@ export function SignupForm() {
 
   if (sent) {
     return (
-      <div className="rounded-card border border-accent bg-accent-soft p-8 text-center">
+      <div className="rounded-card border border-accent bg-accent-soft p-8 text-center text-ink">
         <h3 className="font-heading text-2xl font-bold">Заявка отправлена</h3>
         <p className="mt-3 text-ink-muted">Спасибо! Мы свяжемся с вами выбранным способом.</p>
       </div>
@@ -41,7 +41,7 @@ export function SignupForm() {
         event.preventDefault();
         setSent(true);
       }}
-      className="flex flex-col gap-6 rounded-card border border-line bg-surface p-6 shadow-card sm:p-8"
+      className="flex flex-col gap-6 rounded-card border border-line bg-surface p-6 text-ink shadow-card sm:p-8"
     >
       <label className="flex flex-col gap-2">
         <span className="font-semibold">Имя</span>
@@ -116,7 +116,7 @@ export function SignupForm() {
 
       <button
         type="submit"
-        className="rounded-control bg-accent px-6 py-3 text-base font-semibold text-on-accent transition-colors hover:bg-accent-hover"
+        className="rounded-pill bg-accent px-7 py-4 text-base font-semibold text-on-accent shadow-glow transition hover:bg-accent-hover"
       >
         Отправить заявку
       </button>

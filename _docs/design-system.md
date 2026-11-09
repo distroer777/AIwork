@@ -2,7 +2,7 @@
 
 Значения токенов хранятся в `src/app/globals.css` (блок `@theme`). Здесь описано, какой токен для чего. Нужного значения нет: сначала заведи токен в `globals.css` и опиши его здесь, потом используй. Цвета и размеры в коде не пишем.
 
-Стиль: светлый, спокойный, с одним синим акцентом. Тёмной темы нет.
+Стиль повторяет yarchinvest.online: светлые секции с мягкими градиентами, бирюзовый акцент (#2c877e), тёмно-синие блоки (идея, заявка, подвал), кнопки и шапка в форме «таблетки».
 
 ## Цвета
 
@@ -10,14 +10,18 @@
 |---|---|---|
 | `--color-bg` | `bg-bg` | фон страницы и светлых секций |
 | `--color-surface` | `bg-surface` | карточки, поля ввода, чередующиеся секции |
-| `--color-ink` | `text-ink`, `bg-ink` | основной текст; фон подвала |
+| `--color-ink` | `text-ink` | основной текст |
 | `--color-ink-muted` | `text-ink-muted` | вторичный текст, подписи, описания |
 | `--color-line` | `border-line` | границы карточек, полей, разделители |
 | `--color-accent` | `bg-accent`, `text-accent`, `border-accent` | главные кнопки, акценты, выделенная карточка, финальный блок |
 | `--color-accent-hover` | `hover:bg-accent-hover` | наведение на главную кнопку |
 | `--color-accent-soft` | `bg-accent-soft` | мягкий фон: номера модулей, наведение на вторичную кнопку |
 | `--color-on-accent` | `text-on-accent` | текст на акцентном фоне |
-| `--color-on-ink` | `text-on-ink` | текст на тёмном фоне (подвал) |
+| `--color-accent-bright` | `bg-accent-bright` | яркий бирюзовый на тёмном фоне |
+| `--color-kicker` | `text-kicker`, `bg-kicker` | надстрочник секции с точкой |
+| `--color-navy` | `bg-navy` | тёмно-синий |
+| `--color-on-navy` | `text-on-navy` | текст на тёмно-синем фоне |
+| `--color-on-ink` | `text-on-ink` | белый текст на тёмном фоне |
 | `--color-success` | `text-success` | сообщение об успехе |
 | `--color-danger` | `text-danger` | сообщение об ошибке |
 
@@ -37,7 +41,10 @@
 | `--radius-card` | `rounded-card` | карточки и блоки |
 | `--radius-control` | `rounded-control` | кнопки, поля ввода |
 | `--radius-pill` | `rounded-pill` | маркеры, круглые номера |
-| `--shadow-card` | `shadow-card` | тень карточек |
+| `--shadow-card` | `shadow-card` | тень карточек и шапки |
+| `--shadow-glow` | `shadow-glow` | свечение главной кнопки |
+
+Фоны секций (классы в `globals.css`): `scene-hero` (шапка страницы), `scene-paper` (белые секции), `scene-dark` (тёмно-синие секции и подвал). В `Section` выбираются через `tone`: `default`, `surface`, `dark`.
 
 ## Раскладка и адаптив
 

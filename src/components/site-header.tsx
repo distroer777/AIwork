@@ -20,15 +20,15 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-10 border-b border-line bg-bg/90 backdrop-blur">
-      <Container className="flex items-center justify-between gap-4 py-3">
+    <header className="sticky top-3 z-10 px-3 sm:px-6">
+      <Container className="flex items-center justify-between gap-4 rounded-pill bg-surface/80 py-2 pl-5 pr-2 shadow-card backdrop-blur-lg">
         <Link href="/" className="font-heading text-lg font-bold text-accent sm:text-xl">
           Ярчинвест
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Разделы страницы">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Разделы страницы">
           {links.map((link) => (
-            <a key={link.href} href={link.href} className="text-ink-muted hover:text-ink">
+            <a key={link.href} href={link.href} className="rounded-pill px-3 py-2 text-ink-muted transition hover:bg-accent-soft hover:text-accent">
               {link.label}
             </a>
           ))}
@@ -46,7 +46,7 @@ export function SiteHeader() {
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
-            className="flex size-10 items-center justify-center rounded-control border border-line bg-surface text-xl lg:hidden"
+            className="flex size-10 items-center justify-center rounded-pill bg-accent-soft text-xl lg:hidden"
           >
             {open ? "×" : "☰"}
           </button>
@@ -54,7 +54,7 @@ export function SiteHeader() {
       </Container>
 
       {open ? (
-        <nav className="border-t border-line bg-bg lg:hidden" aria-label="Мобильное меню">
+        <nav className="mt-2 rounded-card bg-surface shadow-card lg:hidden" aria-label="Мобильное меню">
           <Container className="flex flex-col py-2">
             {[...links, { href: "#author", label: "Автор" }].map((link) => (
               <a

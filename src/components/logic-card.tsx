@@ -8,7 +8,7 @@ export function LogicCard({ title, items, variant }: LogicCardProps) {
   const isWith = variant === "with";
   return (
     <div
-      className={`rounded-card border p-6 sm:p-8 ${
+      className={`rounded-card border p-6 text-ink sm:p-8 ${
         isWith ? "border-accent bg-accent-soft" : "border-line bg-surface"
       }`}
     >

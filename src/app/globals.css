@@ -2,27 +2,27 @@
 
 /* Токены дизайн-системы. Правила их применения: _docs/design-system.md */
 @theme {
-  /* Цвета */
-  --color-bg: #f2f5fb;
+  --color-bg: #f1f4fa;
   --color-surface: #ffffff;
-  --color-ink: #0a1024;
-  --color-ink-muted: #4a5470;
-  --color-line: #d9e0ef;
-  --color-accent: #1b44ff;
-  --color-accent-hover: #1233cc;
-  --color-accent-soft: #e6ebff;
+  --color-ink: #08101f;
+  --color-ink-muted: #54607b;
+  --color-line: #dde2ec;
+  --color-accent: #2c877e;
+  --color-accent-hover: #12574f;
+  --color-accent-soft: #e2eeed;
+  --color-accent-bright: #43e8d8;
+  --color-kicker: #35b3a5;
   --color-on-accent: #ffffff;
+  --color-navy: #0a1a33;
+  --color-on-navy: #dce7f7;
   --color-on-ink: #ffffff;
-  --color-success: #1a7f4b;
-  --color-danger: #c62828;
-
-  /* Скругления */
-  --radius-card: 1.25rem;
-  --radius-control: 0.75rem;
+  --color-success: #0a7a56;
+  --color-danger: #b03c22;
+  --radius-card: 1.375rem;
+  --radius-control: 0.875rem;
   --radius-pill: 999px;
-
-  /* Тени */
-  --shadow-card: 0 8px 30px rgb(10 16 36 / 0.08);
+  --shadow-card: 0 1px 2px rgb(10 20 45 / 0.05), 0 14px 34px -16px rgb(10 20 45 / 0.26);
+  --shadow-glow: 0 18px 40px -22px rgb(29 125 115 / 0.75);
 }
 
 @theme inline {
@@ -35,3 +35,24 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
 }
+
+/* Фоны секций — как на yarchinvest.online */
+.scene-hero {
+  background:
+    radial-gradient(62% 48% at 74% 2%, rgb(67 232 216 / 0.2), transparent 66%),
+    radial-gradient(52% 42% at 16% 6%, rgb(47 109 246 / 0.13), transparent 70%),
+    linear-gradient(180deg, #e8f1fa 0%, #eef5fb 34%, #f4f8fc 66%, var(--color-bg) 100%);
+}
+.scene-paper { background: linear-gradient(#ffffff, #fbfdff); }
+.scene-dark {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--color-on-navy);
+  background:
+    radial-gradient(58% 44% at 78% 6%, rgb(67 232 216 / 0.16), transparent 66%),
+    radial-gradient(52% 40% at 12% 92%, rgb(47 109 246 / 0.2), transparent 70%),
+    linear-gradient(168deg, #071429 0%, #0a1a33 42%, #0c2145 100%);
+}
+.scene-dark h2,
+.scene-dark h3 { color: #ffffff; }
