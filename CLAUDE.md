@@ -56,4 +56,6 @@ TypeScript, Next.js, React, Tailwind, PostgreSQL с Prisma, VK Cloud Object Stor
 - Остановить: `docker compose stop`. Остановить и удалить контейнер (данные сохраняются): `docker compose down`.
 - Удалить вместе с данными: `docker compose down -v`. Делай только осознанно.
 - Таблицы создаются командой `npx prisma migrate dev`.
+- Файловое хранилище S3 локально работает в контейнере `yarchinvest-minio` (поднимается тем же `docker compose up -d`). Настройки хранилища дописывает в `.env` скрипт `_docs\add-s3-env.ps1`. Консоль MinIO: порт `S3_CONSOLE_PORT` из `.env`. В проде вместо MinIO VK Cloud Object Storage, меняются только переменные `S3_*`.
+- Тексты юридических документов лежат в `_docs/legal` (версия и дата в шапке файла), реквизиты компании в `src/lib/company.ts`. При правке документа меняй `version` и `date`.
 - Не коммить `.env`. Ключи (RuSender, OpenAI) хранятся только в `.env`.

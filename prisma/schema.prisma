@@ -26,8 +26,13 @@ model AuthUser {
   image         String?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+  plan          Plan          @default(FREE)
+  planUntil     DateTime?
   sessions      AuthSession[]
   accounts      AuthAccount[]
+  drafts        Draft[]
+  rewriteUsage  RewriteUsage[]
+  consents      Consent[]
 
   @@map("auth_user")
 }
@@ -77,4 +82,65 @@ model AuthVerification {
 
   @@index([identifier])
   @@map("auth_verification")
+}
+
+enum Plan {
+  FREE
+  PRO
+}
+
+// Черновик переписанного поста
+model Draft {
+  id        String       @id
+  userId    String
+  user      AuthUser     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text      String
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  media     DraftMedia[]
+
+  @@index([userId, createdAt])
+  @@map("draft")
+}
+
+// Файл черновика. Сам файл лежит в S3 под ключом key
+model DraftMedia {
+  id          String   @id @default(cuid())
+  draftId     String
+  draft       Draft    @relation(fields: [draftId], references: [id], onDelete: Cascade)
+  key         String   @unique
+  contentType String
+  size        Int
+  kind        String
+  position    Int
+  createdAt   DateTime @default(now())
+
+  @@index([draftId])
+  @@map("draft_media")
+}
+
+// Одно успешное переписывание, нужно для месячного лимита
+model RewriteUsage {
+  id        String   @id @default(cuid())
+  userId    String
+  user      AuthUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@map("rewrite_usage")
+}
+
+// Факт принятия документа: кто, когда, с какого IP и какую версию
+model Consent {
+  id         String   @id @default(cuid())
+  userId     String
+  user       AuthUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  document   String
+  version    String
+  ip         String?
+  userAgent  String?
+  acceptedAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("consent")
 }

@@ -1,5 +1,6 @@
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { getSessionUser } from "@/lib/session";
+import { getPlanUsage } from "@/lib/usage";
 import { rewritePost } from "@/lib/rewrite";
 import type { RewriteFormat } from "@/lib/rewrite-prompts";
 
@@ -8,9 +9,17 @@ const MAX_TEXT = 8000;
 const MAX_INSTRUCTIONS = 500;
 
 export async function POST(request: Request) {
-  const session = await auth.api.getSession({ headers: await headers() });
-  if (!session) {
+  const user = await getSessionUser();
+  if (!user) {
     return Response.json({ error: "Войдите в аккаунт" }, { status: 401 });
+  }
+
+  const usage = await getPlanUsage(user.id);
+  if (usage.rewritesLeft === 0) {
+    return Response.json(
+      { error: `Лимит исчерпан: на тарифе ${usage.plan.name} доступно ${usage.plan.rewritesPerMonth} переписываний в месяц`, code: "LIMIT_REACHED" },
+      { status: 403 },
+    );
   }
 
   let body: Record<string, unknown>;
@@ -34,10 +43,11 @@ export async function POST(request: Request) {
 
   try {
     const result = await rewritePost({ text, format, hasMedia, instructions });
+    await prisma.rewriteUsage.create({ data: { userId: user.id } });
     return Response.json({ result });
   } catch (error) {
     // В лог только идентификатор пользователя и причина, без текста поста
-    console.error(`rewrite: ошибка для пользователя ${session.user.id}:`, error instanceof Error ? error.message : "unknown");
+    console.error(`rewrite: ошибка для пользователя ${user.id}:`, error instanceof Error ? error.message : "unknown");
     return Response.json({ error: "Не удалось переписать пост, попробуйте позже" }, { status: 502 });
   }
 }

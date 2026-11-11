@@ -33,6 +33,7 @@ export function SignupFlow() {
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [seconds, setSeconds] = useState(0);
+  const [marketing, setMarketing] = useState(false);
 
   useEffect(() => {
     if (seconds <= 0) return;
@@ -77,6 +78,12 @@ export function SignupFlow() {
     if (!session.data) {
       await authClient.signIn.email({ email: email.trim().toLowerCase(), password });
     }
+    // Фиксируем принятие документов: пользователь, время, IP и версии
+    await fetch("/api/consent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ marketing }),
+    }).catch(() => undefined);
     router.replace("/home");
   }
 
@@ -165,6 +172,25 @@ export function SignupFlow() {
         <button type="submit" disabled={pending} className={primaryClass}>
           {pending ? "Отправляем код…" : "Зарегистрироваться"}
         </button>
+        <p className="text-sm text-ink-muted">
+          Регистрируясь, вы принимаете{" "}
+          <Link href="/legal/terms" target="_blank" className="text-accent underline">
+            пользовательское соглашение
+          </Link>{" "}
+          и{" "}
+          <Link href="/legal/privacy" target="_blank" className="text-accent underline">
+            политику конфиденциальности
+          </Link>
+        </p>
+        <label className="flex items-start gap-3 text-sm text-ink-muted">
+          <input
+            type="checkbox"
+            checked={marketing}
+            onChange={(event) => setMarketing(event.target.checked)}
+            className="mt-1"
+          />
+          <span>Я согласен(на) получать рекламные рассылки (необязательно)</span>
+        </label>
       </form>
     </AuthShell>
   );

@@ -1,11 +1,15 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { MediaPicker } from "./media-picker";
 import { FORMAT_LABELS, countChars, getLimit, type RewriteFormat } from "@/lib/rewrite-prompts";
 
 const fieldClass = "w-full rounded-control border border-line bg-surface px-4 py-3 outline-none focus:border-accent";
 
 export function RewriteForm() {
+  const router = useRouter();
   const [text, setText] = useState("");
   const [format, setFormat] = useState<RewriteFormat>("original");
   const [hasMedia, setHasMedia] = useState(false);
@@ -13,6 +17,10 @@ export function RewriteForm() {
   const [result, setResult] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const [saved, setSaved] = useState(false);
 
   const limit = getLimit(format, hasMedia);
 
@@ -35,6 +43,30 @@ export function RewriteForm() {
       setError("Нет связи с сервером, попробуйте позже");
     } finally {
       setPending(false);
+    }
+  }
+
+  async function saveDraft() {
+    setSaveError(null);
+    setSaved(false);
+    setSaving(true);
+    const form = new FormData();
+    form.set("text", result);
+    files.forEach((file) => form.append("files", file));
+    try {
+      const response = await fetch("/api/drafts", { method: "POST", body: form });
+      const data = await response.json();
+      if (!response.ok) {
+        setSaveError(data.error ?? "Не удалось сохранить черновик");
+        return;
+      }
+      setSaved(true);
+      setFiles([]);
+      router.refresh();
+    } catch {
+      setSaveError("Нет связи с сервером, попробуйте позже");
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -114,6 +146,39 @@ export function RewriteForm() {
         <p className="text-sm text-ink-muted">
           {countChars(result)} символов{limit ? ` из ${limit}` : ""}
         </p>
+
+        <div className="mt-4 flex flex-col gap-4 border-t border-line pt-5">
+          <MediaPicker
+            newFiles={files}
+            onAdd={(added) => setFiles((current) => [...current, ...added])}
+            onRemoveNew={(index) => setFiles((current) => current.filter((_, i) => i !== index))}
+            disabled={saving}
+          />
+          {saveError ? (
+            <p className="text-danger" role="alert">
+              {saveError}{" "}
+              <Link href="/home/tariffs" className="font-semibold underline">
+                Тарифы
+              </Link>
+            </p>
+          ) : null}
+          {saved ? (
+            <p className="text-success" role="status">
+              Черновик сохранён.{" "}
+              <Link href="/home/drafts" className="font-semibold underline">
+                Открыть черновики
+              </Link>
+            </p>
+          ) : null}
+          <button
+            type="button"
+            onClick={saveDraft}
+            disabled={saving || !result.trim()}
+            className="w-fit rounded-pill bg-accent px-7 py-3 font-semibold text-on-accent shadow-glow transition hover:bg-accent-hover disabled:opacity-60"
+          >
+            {saving ? "Сохранение..." : "Сохранить"}
+          </button>
+        </div>
       </div>
     </div>
   );
