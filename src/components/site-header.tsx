@@ -14,7 +14,8 @@ const links = [
   { href: "#pricing", label: "Стоимость" },
 ];
 
-const cabinetUrl = "https://yarchinvest.online/cabinet.html";
+const loginUrl = "/login";
+const signupUrl = "/signup";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -35,10 +36,10 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <ButtonLink href={cabinetUrl} variant="secondary" className="hidden px-4 py-2 text-sm lg:inline-flex">
+          <ButtonLink href={loginUrl} variant="secondary" className="hidden px-4 py-2 text-sm lg:inline-flex">
             Личный кабинет
           </ButtonLink>
-          <ButtonLink href="#join" className="px-4 py-2 text-sm">
+          <ButtonLink href={signupUrl} className="px-4 py-2 text-sm">
             Начать обучение
           </ButtonLink>
           <button
@@ -66,7 +67,7 @@ export function SiteHeader() {
                 {link.label}
               </a>
             ))}
-            <a href={cabinetUrl} className="py-3 text-lg text-accent">
+            <a href={loginUrl} className="py-3 text-lg text-accent">
               Личный кабинет
             </a>
           </Container>

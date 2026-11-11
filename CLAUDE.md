@@ -31,7 +31,7 @@
 
 ## Стек технологий
 
-TypeScript, Next.js, React, Tailwind, PostgreSQL с Prisma, VK Cloud Object Storage (S3), Auth.js, ЮKassa, Brevo, Docker и Dokploy на VK Cloud. Подробности и обоснование: `_docs/stack.md`.
+TypeScript, Next.js, React, Tailwind, PostgreSQL с Prisma, VK Cloud Object Storage (S3), Better Auth, ЮKassa, Brevo и RuSender, OpenAI через прокси, Docker и Dokploy на VK Cloud. Подробности и обоснование: `_docs/stack.md`.
 
 ## Пользовательские правила
 
@@ -46,3 +46,14 @@ TypeScript, Next.js, React, Tailwind, PostgreSQL с Prisma, VK Cloud Object Stor
 - Когда создаёшь новый скилл или дорабатываешь существующий, сначала вызови скилл skill-creator и работай по его правилам.
 - Стилизуем только токенами дизайн-системы, без цветов и размеров, вписанных прямо в код.
 - Заводишь задачу в `_docs/features.md`: сначала проверь `_docs/backlog.md` и удали дубликат оттуда. Одна и та же задача в двух файлах не лежит.
+
+## База данных (Docker)
+
+База PostgreSQL работает в контейнере `yarchinvest-db` (файл `docker-compose.yml`). Приложение запускается локально через `npm run dev`, не в контейнере. Порт 5432 занят локальным Postgres, поэтому контейнер опубликован на порту из `DB_PORT` в `.env` (по умолчанию 5433), только на 127.0.0.1.
+
+- Первый раз создай `.env`: `powershell -ExecutionPolicy Bypass -File _docs\setup-env.ps1` (пароли генерируются сами). Шаблон без значений: `.env.example`.
+- Поднять базу: `docker compose up -d`. Проверить: `docker compose ps` (статус healthy).
+- Остановить: `docker compose stop`. Остановить и удалить контейнер (данные сохраняются): `docker compose down`.
+- Удалить вместе с данными: `docker compose down -v`. Делай только осознанно.
+- Таблицы создаются командой `npx prisma migrate dev`.
+- Не коммить `.env`. Ключи (RuSender, OpenAI) хранятся только в `.env`.
